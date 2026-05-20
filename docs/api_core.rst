@@ -43,6 +43,33 @@ Macros
    This macro should be used at the top level (outside of namespaces and
    program code).
 
+.. c:macro:: NB_NAMED_TUPLE_CASTER(T, ...)
+
+   Opt the C++ type `T` into the named-tuple type caster, allowing it to be
+   used as a function argument or return type. The one-argument form,
+   ``NB_NAMED_TUPLE_CASTER(T)``, uses the stringified C++ identifier
+   (``#T``) as the Python class name baked into the caster's signature
+   descr. The two-argument form, ``NB_NAMED_TUPLE_CASTER(T, "PyName")``,
+   takes an explicit Python identifier string literal and is required when
+   `T` is qualified (``geom::QualPoint``) or is a typedef whose spelling
+   is not a valid Python identifier. Like :c:macro:`NB_MAKE_OPAQUE`, this
+   macro must be used at the top level (outside of namespaces and program
+   code) and is provided by the opt-in header
+   ``<nanobind/nb_named_tuple.h>``.
+
+.. c:macro:: NB_NAMED_TUPLE(scope, Type, ...)
+
+   Register the C++ struct `Type` as a Python NamedTuple in the given module
+   or scope, listing its public fields by name. Supports up to 16 fields; for
+   more (or for advanced features such as custom field names, per-field
+   defaults, class or per-field docstrings), call
+   :cpp:func:`nanobind::register_named_tuple` directly with
+   :cpp:func:`nanobind::field` arguments. Must be paired with
+   :c:macro:`NB_NAMED_TUPLE_CASTER` at file scope, and is provided by the
+   opt-in header ``<nanobind/nb_named_tuple.h>``.
+
+   See :ref:`utilities_named_tuple` for a worked example.
+
 Python object API
 -----------------
 

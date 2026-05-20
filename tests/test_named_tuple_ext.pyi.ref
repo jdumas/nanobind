@@ -1,0 +1,110 @@
+from collections.abc import Sequence
+from typing import NamedTuple
+
+
+class Point(NamedTuple):
+    """Point(x, y)"""
+
+    x: int
+    y: float
+
+class Color(NamedTuple):
+    """Color(r, g)"""
+
+    r: int
+    g: int
+
+class Config(NamedTuple):
+    """Config(name, width, height)"""
+
+    name: str
+    width: int = 80
+    height: int = 24
+
+class OptItem(NamedTuple):
+    """OptItem(id, label)"""
+
+    id: int
+    label: str | None
+
+class Outer(NamedTuple):
+    """Outer(origin, weight)"""
+
+    origin: Point
+    weight: int
+
+class Tree(NamedTuple):
+    """Tree(value, children)"""
+
+    value: int
+    children: list[Tree]
+
+class DocPoint(NamedTuple):
+    """A 2D point with documented fields."""
+
+    x: int
+    """horizontal coordinate"""
+    y: int = 0
+    """vertical coordinate (default 0)"""
+
+class QualPoint(NamedTuple):
+    """QualPoint(x, y)"""
+
+    x: int
+    y: int
+
+class PairIF(NamedTuple):
+    """PairIF(first, second)"""
+
+    first: int
+    second: float
+
+class PairFI(NamedTuple):
+    """PairFI(first, second)"""
+
+    first: float
+    second: int
+
+def make_point(arg0: int, arg1: float, /) -> Point: ...
+
+def point_x(arg: Point, /) -> int: ...
+
+def point_y(arg: Point, /) -> float: ...
+
+def roundtrip_point(arg: Point, /) -> Point: ...
+
+def make_color(arg0: int, arg1: int, /) -> Color: ...
+
+def color_sum(arg: Color, /) -> int: ...
+
+def roundtrip_color(arg: Color, /) -> Color: ...
+
+def default_config() -> Config: ...
+
+def roundtrip_config(arg: Config, /) -> Config: ...
+
+def make_optitem(arg0: int, arg1: str | None) -> OptItem: ...
+
+def roundtrip_optitem(arg: OptItem, /) -> OptItem: ...
+
+def make_outer(arg0: int, arg1: float, arg2: int, /) -> Outer: ...
+
+def roundtrip_outer(arg: Outer, /) -> Outer: ...
+
+def tree_leaf(arg: int, /) -> Tree: ...
+
+def tree_branch(arg0: int, arg1: Sequence[Tree], /) -> Tree: ...
+
+def tree_sum(arg: Tree, /) -> int: ...
+
+def roundtrip_docpoint(arg: DocPoint, /) -> DocPoint: ...
+
+def roundtrip_qualpoint(arg: QualPoint, /) -> QualPoint: ...
+
+def roundtrip_pair_if(arg: PairIF, /) -> PairIF: ...
+
+def roundtrip_pair_fi(arg: PairFI, /) -> PairFI: ...
+
+def trigger_non_trailing_defaults(arg: object, /) -> None: ...
+
+def trigger_throwing_default(arg: object, /) -> None: ...

@@ -81,6 +81,7 @@ set(TEST_NAMES
   issue
   intrusive
   thread
+  named_tuple
 )
 
 foreach (NAME ${TEST_NAMES})
@@ -103,7 +104,7 @@ else()
   set(OUT_DIR ${CMAKE_CURRENT_BINARY_DIR})
 endif()
 
-foreach (NAME functions classes ndarray jax tensorflow stl enum typing make_iterator)
+foreach (NAME functions classes ndarray jax tensorflow stl enum typing make_iterator named_tuple)
   if (NAME STREQUAL typing)
     set(EXTRA
       MARKER_FILE py.typed
@@ -154,6 +155,10 @@ nanobind_add_module(test_inter_module_2_ext NB_DOMAIN mydomain test_inter_module
 target_link_libraries(test_inter_module_1_ext PRIVATE inter_module)
 target_link_libraries(test_inter_module_2_ext PRIVATE inter_module)
 
+# Companion extension for the NamedTuple cross-module reuse test
+# (see tests/test_named_tuple.py::test23_cross_module_input).
+nanobind_add_module(test_named_tuple_b_ext test_named_tuple_b.cpp ${NB_EXTRA_ARGS})
+
 set(TEST_FILES
   common.py
   conftest.py
@@ -170,6 +175,7 @@ set(TEST_FILES
   test_inter_module.py
   test_intrusive.py
   test_make_iterator.py
+  test_named_tuple.py
   test_stl.py
   test_stl_bind_map.py
   test_stl_bind_vector.py
@@ -191,6 +197,7 @@ set(TEST_FILES
   test_tensorflow_ext.pyi.ref
   test_stl_ext.pyi.ref
   test_enum_ext.pyi.ref
+  test_named_tuple_ext.pyi.ref
   test_typing_ext.pyi.ref
   py_stub_test.py
   py_stub_test.pyi.ref
